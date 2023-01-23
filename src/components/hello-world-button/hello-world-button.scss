@@ -1,0 +1,39 @@
+$font-size: 20px;
+$button-background-color: orangered;
+$button-font-color: black;
+$text-font-color: orangered;
+$text-background-color: black;
+
+html,
+body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    background: black;
+}
+
+.hello-world-button {
+    font-size: $font-size;
+    padding: 7px 15px;
+    background: $button-background-color;
+    color: $button-font-color;
+    outline: none;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.hello-world-text {
+    color: $text-font-color;
+    background: $text-background-color;
+    font-weight: bold;
+    display: block;
+    width: fit-content;
+}
