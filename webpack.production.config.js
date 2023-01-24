@@ -1,16 +1,25 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        'hello-world': './src/hello-world.js',
+        'sharingan': './src/sharingan.js'
+    },
     output: {
-        filename: 'bundle.[contenthash].js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, './dist'),
         publicPath: ''
     },
-    mode: 'none',
+    mode: 'production',
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            minSize: 5000,
+            automaticNameDelimiter: '_'
+        }
+    },
     module: {
         rules: [
             {
@@ -51,9 +60,8 @@ module.exports = {
         ]
     },
     plugins: [
-        new TerserPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'style.[contenthash].css'
+            filename: '[name].[contenthash].css'
         }),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
@@ -62,9 +70,18 @@ module.exports = {
             ]
         }),
         new HtmlWebpackPlugin({
-            title: 'Webpack Demo',
-            template: 'src/index.hbs',
-            description: 'Some Description'
+            filename: 'hello-world.html',
+            chunks: ['hello-world', '122.65823a6b6a0a166aeebe.js'],
+            title: 'Hello World',
+            template: 'src/page-template.hbs',
+            description: 'Hello World'
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'sharingan.html',
+            chunks: ['sharingan', '122.65823a6b6a0a166aeebe.js'],
+            title: 'Sharingan',
+            template: 'src/page-template.hbs',
+            description: 'Katon go ka kyo no jutsu'
         })
     ]
 }
